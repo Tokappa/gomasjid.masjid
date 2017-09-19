@@ -1,0 +1,163 @@
+<?php
+include('date-function.php');
+?>
+
+<div class="row main-row slideshow">
+    <div class="col-md-3 left-bar">
+        <div class="content">
+            <p class="masjid-name"><?php echo $profil->nama ?></p>
+            <p class="address"><?php echo $profil->alamat ?></p>
+            <!-- <p class="address">Yogyakarta 55256</p> -->
+            <p class="address">Phone: <?php echo $profil->telepon ?></p>
+            <div class="spacer-1">&nbsp;</div>
+            <p class="date"><?php echo $indonesian_day[date('w')] ?>,
+                <?php echo date('j') ?>
+                <?php echo $indonesian_month[date('n')-1] ?>
+                <?php echo date('Y') ?></p>
+            <p class="date"><?php echo $hijri_date['day'] ?> <?php echo $hijri_month[$hijri_date['month']-1] ?>
+                <?php echo $hijri_date['year'] ?></p>
+            <div class="clock clock-wrap clock-wrap-small">
+                <div class="hour-wrap">
+                    <div class="digit-top">
+                    <div class="front">00</div>
+                    <div class="back">00</div>
+                    </div>
+                    <div class="digit-bottom">
+                    <div class="front">00</div>
+                    </div>
+                </div>
+                <div class="min-wrap">
+                    <div class="digit-top">
+                    <div class="front">59</div>
+                    <div class="back">59</div>
+                    </div>
+                    <div class="digit-bottom">
+                    <div class="front">59</div>
+                    </div>
+                </div>
+                <div class="sec-wrap">
+                    <div class="digit-top">
+                    <div class="front">59</div>
+                    <div class="back">59</div>
+                    </div>
+                    <div class="digit-bottom">
+                    <div class="front">59</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="financial-box">
+
+                <h4>Keuangan &nbsp;<span class="pull-right updated-at"><?php echo date("j-n-Y", strtotime($financial->updated_at))  ?></span></h4>
+                <ul class="list-group list-group-unbordered semi-transparent">
+                    <li class="list-group-item semi-transparent">
+                        <strong>Pemasukan</strong> <span class="pull-right">Rp. <?php echo number_format($financial->pemasukan, 0, ',', '.') ?></span>
+                    </li>
+                    <li class="list-group-item semi-transparent">
+                        <b>Pengeluaran</b> <span class="pull-right">Rp.  <?php echo number_format($financial->pengeluaran, 0, ',', '.') ?></span>
+                    </li>
+                    <li class="list-group-item semi-transparent">
+                        <b>Saldo</b> <span class="pull-right">Rp.  <?php echo number_format($financial->saldo, 0, ',', '.') ?></span>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="jumat-box">
+
+                <!-- <h4>Sholat Jumat &nbsp;<small>Update 24 March 2016</small></h4> -->
+                <h4>Sholat Jumat &nbsp;<span class="pull-right updated-at"><?php echo date("j-n-Y", strtotime("next Friday", strtotime($info_jumat->updated_at)))  ?></span></h4>
+                <ul class="list-group list-group-unbordered semi-transparent">
+                    <li class="list-group-item semi-transparent">
+                        <strong>Muadzin</strong> <span class="pull-right"><?php echo $info_jumat->muadzin ?></span>
+                    </li>
+                    <li class="list-group-item semi-transparent">
+                        <b>Khotib</b> <span class="pull-right"><?php echo $info_jumat->khatib ?></span>
+                    </li>
+                    <li class="list-group-item semi-transparent">
+                        <b>Imam</b> <span class="pull-right"><?php echo $info_jumat->imam ?></span>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-9 right-bar">
+        <div class="events">
+            <div class="event-slideshow">
+                <div class="slides">
+                    <?php
+                    foreach ($events as $event)
+                    {
+                        // Download image
+                        $filename = basename($event->image);
+                        $image = basename($image_location).'/'.$filename;
+                        ?>
+
+                        <div>
+                            <img src="<?php echo $image ?>" alt="">
+                        </div>
+
+                        <?php
+
+                    }
+                    ?>
+
+                </div>
+
+                <div class="prayer-time">
+                    <table class="table prayer-table">
+                        <tr>
+                            <?php
+                            if (isset($waktu_sholat[6]))
+                            {
+                                ?>
+                                <th class="text-center imsak"><span>Imsak<span></th>
+                                <?php
+                            }
+                            ?>
+                            <th class="text-center subuh"><span>Subuh<span></th>
+                            <th class="text-center dzuhur"><span>Dzuhur</span></th>
+                            <th class="text-center ashar"><span>Ashar</span></th>
+                            <th class="text-center maghrib"><span>Maghrib</span></th>
+                            <th class="text-center isya"><span>Isya</span></th>
+                        </tr>
+                        <tr>
+                            <?php
+                            if (isset($waktu_sholat[6]))
+                            {
+                                ?>
+                                <td class="text-center imsak"><span><?php echo trimSeconds($waktu_sholat[6]) ?></span></td>
+                                <?php
+                            }
+                            ?>
+                            <td class="text-center subuh"><span><?php echo trimSeconds($waktu_sholat[0]) ?></span></td>
+                            <td class="text-center dzuhur"><span><?php echo trimSeconds($waktu_sholat[2]) ?></span></td>
+                            <td class="text-center ashar"><span><?php echo trimSeconds($waktu_sholat[3]) ?></span></td>
+                            <td class="text-center maghrib"><span><?php echo trimSeconds($waktu_sholat[4]) ?></span></td>
+                            <td class="text-center isya"><span><?php echo trimSeconds($waktu_sholat[5]) ?></span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="marquee">
+                    <?php
+                    foreach ($rolling_text as $news_single)
+                    {
+                        echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+                        echo $news_single->title;
+                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&mdash;";
+                    }
+                    ?>
+                    <!-- <marquee behavior="scroll" scrollamount="2" direction="left" >asdfasdf</marquee> -->
+                </div>
+
+            </div><!-- .event-slideshow -->
+        </div><!-- .events -->
+
+
+
+    </div>
+</div>

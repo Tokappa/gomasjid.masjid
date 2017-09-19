@@ -1,0 +1,102 @@
+<?php
+include('date-function.php');
+?>
+
+<div class="row main-row adzan-countdown">
+    <div class="col-md-3 left-bar">
+        <div class="content">
+            <p class="masjid-name"><?php echo $profil->nama ?></p>
+            <p class="address"><?php echo $profil->alamat ?></p>
+            <!-- <p class="address">Yogyakarta 55256</p> -->
+            <p class="address">Phone: <?php echo $profil->telepon ?></p>
+            <div class="spacer-1">&nbsp;</div>
+            <p class="date"><?php echo $indonesian_day[date('w')] ?>,
+                <?php echo date('j') ?>
+                <?php echo $indonesian_month[date('n')-1] ?>
+                <?php echo date('Y') ?></p>
+            <p class="date"><?php echo $hijri_date['day'] ?> <?php echo $hijri_month[$hijri_date['month']-1] ?>
+                <?php echo $hijri_date['year'] ?></p>
+            <div class="spacer-1">&nbsp;</div>
+            <div class="spacer-1">&nbsp;</div>
+
+            <div class="analog-clock">
+
+                <div class="hero-circle">
+        			<div class="hero-face">
+                        <div class="analog-hour hero-hour"></div>
+        				<div class="analog-minute hero-minute"></div>
+        				<div class="analog-second hero-second"></div>
+        			</div>
+        		</div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-9 right-bar">
+
+
+
+        <div class="events">
+            <div class="event-slideshow">
+                <div class="countdown-timer">
+
+                    <div class="countdown-header">
+                        <p class="sholat-header text-center">Sholat</p>
+                    </div>
+
+                    <div class="clock-wrap clock-wrap-countdown">
+                        <div class="min-wrap">
+                            <div class="digit-top">
+                            <div class="front">00</div>
+                            <div class="back">60</div>
+                            </div>
+                            <div class="digit-bottom">
+                            <div class="front">00</div>
+                            </div>
+                        </div>
+                        <div class="sec-wrap">
+                            <div class="digit-top">
+                            <div class="front">00</div>
+                            <div class="back">60</div>
+                            </div>
+                            <div class="digit-bottom">
+                            <div class="front">00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="countdown-legend">
+                        <p class="sholat-footer main-legend text-center">Menuju waktu Adzan</p>
+                        <!-- <p class="sub-legend text-center">Silakan matikan alat komunikasi Anda</p> -->
+                    </div>
+
+                </div>
+
+                <div class="prayer-time">
+                    <table class="table prayer-table">
+                        <tr>
+                            <!-- <th class="text-center subuh success"><span class="current-prayer">Subuh<span></th> -->
+                            <th class="text-center subuh"><span>Subuh<span></th>
+                            <th class="text-center dzuhur"><span>Dzuhur</span></th>
+                            <th class="text-center ashar"><span>Ashar</span></th>
+                            <th class="text-center maghrib"><span>Maghrib</span></th>
+                            <th class="text-center isya"><span>Isya</span></th>
+                        </tr>
+                        <tr>
+                            <td class="text-center subuh"><span><?php echo trimSeconds($waktu_sholat[0]) ?></span></td>
+                            <td class="text-center dzuhur"><span><?php echo trimSeconds($waktu_sholat[2]) ?></span></td>
+                            <td class="text-center ashar"><span><?php echo trimSeconds($waktu_sholat[3]) ?></span></td>
+                            <td class="text-center maghrib"><span><?php echo trimSeconds($waktu_sholat[4]) ?></span></td>
+                            <td class="text-center isya"><span><?php echo trimSeconds($waktu_sholat[5]) ?></span></td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div><!-- .event-slideshow -->
+        </div><!-- .events -->
+
+
+    </div>
+</div>
