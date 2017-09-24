@@ -2,9 +2,11 @@
 // Routes
 namespace App;
 
+
 use PDO;
 use \GuzzleHttp\Client;
 use \GuzzleHttp\Exception\RequestException;
+
 
 $app->get('/', function ($request, $response, $args) use($db, $api_token) {
     // Sample log message
@@ -35,10 +37,13 @@ $app->get('/', function ($request, $response, $args) use($db, $api_token) {
 
 });
 
+
+
 // Redirect to main page
 $app->get('/install', function ($req, $res, $args) {
     return $res->withStatus(302)->withHeader('Location', '/');
 });
+
 
 
 // Send usage statistic
@@ -118,9 +123,11 @@ $app->get('/device-stats', function ($request, $response, $args) use ($db, $api_
 
 });
 
+
+
 $app->get('/slideshow', function ($request, $response, $args) use ($db) {
-    $app_setting = $this->settings['GoMasjid'];
-    $image_location = $app_setting['image_dir'];
+    $app_setting        = $this->settings['GoMasjid'];
+    $image_location     = $app_setting['image_dir'];
 
     //
     // $events_file_location = $app_setting['events_file'];
@@ -138,7 +145,7 @@ $app->get('/slideshow', function ($request, $response, $args) use ($db) {
     $events = $news = $financial = $info_jumat = null;
 
     // Events
-    $sth = $db->query('SELECT * FROM events;');
+    $sth = $db->query('SELECT * FROM slideshows;');
     if ($sth)
     {
         $events = $sth->fetchAll(PDO::FETCH_CLASS);
@@ -241,6 +248,23 @@ $app->get('/sholat-time', function ($request, $response, $args) use ($db) {
 
 });
 
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//
+// Synchronization process
+//
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 $app->get('/download-configuration', function ($request, $response, $args) use ($db, $api_token){
 
     $app_setting = $this->settings['GoMasjid'];
@@ -261,17 +285,19 @@ $app->get('/download-configuration', function ($request, $response, $args) use (
             'http_errors' => false
             ]);
 
+        print_r($response->getBody());
+
         $response_json = json_decode($response->getBody()->getContents());
 
         $sth = $db->prepare('UPDATE setting SET
-                                        nama = ?,
+                                        name = ?,
                                         avatar = ?,
-                                        telepon = ?,
-                                        alamat = ?,
+                                        phone = ?,
+                                        address = ?,
                                         convention = ?,
                                         fine_tune = ?,
                                         lat = ?,
-                                        lon = ?,
+                                        lng = ?,
                                         alt = ?,
                                         updated_at = ?
                                     WHERE id = "1";');
@@ -297,10 +323,13 @@ $app->get('/download-configuration', function ($request, $response, $args) use (
 
 });
 
-$app->get('/download-events', function ($req, $res, $args) use ($db, $api_token) {
 
-    $app_setting = $this->settings['GoMasjid'];
-    $api_url = $app_setting['api_url'];
+
+
+$app->get('/download-slideshows', function ($req, $res, $args) use ($db, $api_token) {
+
+    $app_setting    = $this->settings['GoMasjid'];
+    $api_url        = $app_setting['api_url'];
 
 
     try {
@@ -311,7 +340,7 @@ $app->get('/download-events', function ($req, $res, $args) use ($db, $api_token)
             // 'timeout'  => 2.0,
         ]);
 
-        $url_path =  '/api/v1/events';
+        $url_path =  '/api/v1/slideshows';
 
         $response = $guzzle->request('POST', $url_path, [
             'headers' => ['Authorization' => 'Bearer ' . $api_token],
@@ -322,14 +351,14 @@ $app->get('/download-events', function ($req, $res, $args) use ($db, $api_token)
         $response_json = json_decode($response->getBody()->getContents());
 
         // Delete first
-        $db->exec('DELETE FROM events;');
+        $db->exec('DELETE FROM slideshows;');
         $db->exec('VACUUM');
-        $db->exec('DELETE FROM sqlite_sequence WHERE name="events";');
+        $db->exec('DELETE FROM sqlite_sequence WHERE name="slideshows";');
 
         // Then Insert
         foreach ($response_json as $event)
         {
-            $sth = $db->prepare('INSERT INTO events (
+            $sth = $db->prepare('INSERT INTO slideshows (
                                             image,
                                             title,
                                             updated_at
@@ -339,13 +368,14 @@ $app->get('/download-events', function ($req, $res, $args) use ($db, $api_token)
                                             ?,
                                             ?
                                         );');
+
             $sth->execute([
-                $event->image,
-                $event->title,
-                $event->updated_at
+                basename($event->gallery->image_url),
+                $event->gallery->title,
+                $event->gallery->updated_at
             ]);
 
-            $event_images[] = $event->image;
+            $event_images[] = $event->gallery->image_url;
 
         }
 
@@ -355,7 +385,7 @@ $app->get('/download-events', function ($req, $res, $args) use ($db, $api_token)
         // var_dump($event_images);
         foreach ($event_images as $image)
         {
-            // var_dump($event);
+            // var_dump($event_images);
         //     // Download image
             $filename = basename($image);
             $image_location = $app_setting['image_dir'];
@@ -398,10 +428,13 @@ $app->get('/download-events', function ($req, $res, $args) use ($db, $api_token)
 
 });
 
+
+
+
 $app->get('/download-financial', function ($req, $res, $args) use ($db, $api_token){
 
-    $app_setting = $this->settings['GoMasjid'];
-    $api_url = $app_setting['api_url'];
+    $app_setting    = $this->settings['GoMasjid'];
+    $api_url        = $app_setting['api_url'];
 
     try {
         $guzzle = new Client([
@@ -419,19 +452,19 @@ $app->get('/download-financial', function ($req, $res, $args) use ($db, $api_tok
             ]);
 
         $response_json = json_decode($response->getBody()->getContents());
-        var_dump($response_json);
+        // var_dump($response_json);
 
         // Update
         $sth = $db->prepare('UPDATE financial SET
-                                        pemasukan = ?,
-                                        pengeluaran = ?,
-                                        saldo = ?,
+                                        income = ?,
+                                        expense = ?,
+                                        balance = ?,
                                         updated_at = ?
                                     WHERE id = "1";');
         $sth->execute([
-            $response_json->pemasukan,
-            $response_json->pengeluaran,
-            $response_json->saldo,
+            $response_json->income,
+            $response_json->expense,
+            $response_json->balance,
             $response_json->updated_at
         ]);
 
@@ -443,10 +476,13 @@ $app->get('/download-financial', function ($req, $res, $args) use ($db, $api_tok
 
 });
 
+
+
+
 $app->get('/download-jumat', function ($req, $res, $args) use ($db, $api_token){
 
-    $app_setting = $this->settings['GoMasjid'];
-    $api_url = $app_setting['api_url'];
+    $app_setting    = $this->settings['GoMasjid'];
+    $api_url        = $app_setting['api_url'];
 
     try {
         $guzzle = new Client([
@@ -464,7 +500,7 @@ $app->get('/download-jumat', function ($req, $res, $args) use ($db, $api_token){
             ]);
 
         $response_json = json_decode($response->getBody()->getContents());
-        var_dump($response_json);
+        // var_dump($response_json);
 
         // Update
         $sth = $db->prepare('UPDATE jumat SET
@@ -486,6 +522,9 @@ $app->get('/download-jumat', function ($req, $res, $args) use ($db, $api_token){
         echo 'Error: ' . $e->getMessage();
     }
 });
+
+
+
 
 $app->get('/download-news', function ($req, $res, $args) use ($db, $api_token) {
 
