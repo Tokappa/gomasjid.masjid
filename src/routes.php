@@ -303,7 +303,7 @@ $app->get('/download-configuration', function ($request, $response, $args) use (
                                     WHERE id = "1";');
         $sth->execute([
             $response_json->name,
-            $response_json->avatar,
+            "",
             $response_json->phone,
             $response_json->address,
             $response_json->convention,
@@ -313,7 +313,7 @@ $app->get('/download-configuration', function ($request, $response, $args) use (
             $response_json->alt,
             $response_json->updated_at
         ]);
-        echo $response_json;
+        // echo $response_json;
         return $response_json;
     }
     catch (RequestException $e) {
@@ -897,7 +897,7 @@ function WaktuShalat($configuration = null) {
 
 	// Default coordinates is Yogyakarta => -7.7893603,110.367609
     $B = is_null($configuration->lat) ? -7.7893603 : $configuration->lat;    // Garis Lintang (derajat)  -  Latitude (Degrees)
-    $L = is_null($configuration->lon) ? 110.367609 : $configuration->lon;    // Garis Bujur (derajat)  -  Longitude (Degrees)
+    $L = is_null($configuration->lng) ? 110.367609 : $configuration->lng;    // Garis Bujur (derajat)  -  Longitude (Degrees)
     $TZ = 7;    // Waktu Daerah (jam)  -  Time Zone (Hours)
     $Sh = 1;    // Sh=1 (Shafii) - Sh=2 (Hanafi)
     // STOP EDITING
