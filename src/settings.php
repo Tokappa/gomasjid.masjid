@@ -17,7 +17,7 @@ return [
         // Application settings
         'GoMasjid' => [
             // 'api_url' => 'http://localhost:8000',
-            'api_url' => 'https://gomasjid.org',
+            'api_url' => 'https://apps.gomasjid.org',
             'image_dir' => __DIR__.'/../public/slideshows/',
         ],
     ],

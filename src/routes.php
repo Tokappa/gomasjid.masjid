@@ -285,9 +285,11 @@ $app->get('/download-configuration', function ($request, $response, $args) use (
             'http_errors' => false
             ]);
 
-        print_r($response->getBody());
+        // print_r($response->getBody());
 
         $response_json = json_decode($response->getBody()->getContents());
+
+        // print_r($response_json);
 
         $sth = $db->prepare('UPDATE setting SET
                                         name = ?,
@@ -381,6 +383,7 @@ $app->get('/download-slideshows', function ($req, $res, $args) use ($db, $api_to
 
         // Download images
         // But need to check if we've ever download this image before (later)
+        $image_location = $app_setting['image_dir'];
 
         // var_dump($event_images);
         foreach ($event_images as $image)
@@ -388,7 +391,6 @@ $app->get('/download-slideshows', function ($req, $res, $args) use ($db, $api_to
             // var_dump($event_images);
         //     // Download image
             $filename = basename($image);
-            $image_location = $app_setting['image_dir'];
 
 
             if ( ! file_exists($image_location.$filename))
@@ -454,19 +456,22 @@ $app->get('/download-financial', function ($req, $res, $args) use ($db, $api_tok
         $response_json = json_decode($response->getBody()->getContents());
         // var_dump($response_json);
 
-        // Update
-        $sth = $db->prepare('UPDATE financial SET
-                                        income = ?,
-                                        expense = ?,
-                                        balance = ?,
-                                        updated_at = ?
-                                    WHERE id = "1";');
-        $sth->execute([
-            $response_json->income,
-            $response_json->expense,
-            $response_json->balance,
-            $response_json->updated_at
-        ]);
+        if ($response_json)
+        {
+            // Update
+            $sth = $db->prepare('UPDATE financial SET
+                                            income = ?,
+                                            expense = ?,
+                                            balance = ?,
+                                            updated_at = ?
+                                        WHERE id = "1";');
+            $sth->execute([
+                $response_json->income,
+                $response_json->expense,
+                $response_json->balance,
+                $response_json->updated_at
+            ]);
+        }
 
         return $response_json;
     }
@@ -502,19 +507,22 @@ $app->get('/download-jumat', function ($req, $res, $args) use ($db, $api_token){
         $response_json = json_decode($response->getBody()->getContents());
         // var_dump($response_json);
 
-        // Update
-        $sth = $db->prepare('UPDATE jumat SET
-                                        muadzin = ?,
-                                        khatib = ?,
-                                        imam= ?,
-                                        updated_at = ?
-                                    WHERE id = "1";');
-        $sth->execute([
-            $response_json->muadzin,
-            $response_json->khatib,
-            $response_json->imam,
-            $response_json->updated_at
-        ]);
+        if ($response_json)
+        {
+            // Update
+            $sth = $db->prepare('UPDATE jumat SET
+                                            muadzin = ?,
+                                            khatib = ?,
+                                            imam= ?,
+                                            updated_at = ?
+                                        WHERE id = "1";');
+            $sth->execute([
+                $response_json->muadzin,
+                $response_json->khatib,
+                $response_json->imam,
+                $response_json->updated_at
+            ]);
+        }
 
         return $response_json;
     }
@@ -555,25 +563,29 @@ $app->get('/download-news', function ($req, $res, $args) use ($db, $api_token) {
         $db->exec('VACUUM');
         $db->exec('DELETE FROM sqlite_sequence WHERE name="news";');
 
-        // Then Insert
-        foreach ($response_json as $news)
+        if ($response_json)
         {
-            $sth = $db->prepare('INSERT INTO news (
-                                            title,
-                                            content,
-                                            updated_at
-                                            )
-                                        VALUES (
-                                            ?,
-                                            ?,
-                                            ?
-                                        );');
-            $sth->execute([
-                $news->title,
-                $news->content,
-                $news->updated_at
-            ]);
+            // Then Insert
+            foreach ($response_json as $news)
+            {
+                $sth = $db->prepare('INSERT INTO news (
+                                                title,
+                                                content,
+                                                updated_at
+                                                )
+                                            VALUES (
+                                                ?,
+                                                ?,
+                                                ?
+                                            );');
+                $sth->execute([
+                    $news->title,
+                    $news->content,
+                    $news->updated_at
+                ]);
+            }
         }
+
 
         return $response_json;
     }
