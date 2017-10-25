@@ -1,200 +1,515 @@
-html, body{ height:100%; }
-body {
-    overflow: hidden;
-    cursor: none;
-}
-.background-full {
-    /*background: url(http://placehold.it/1920x1080) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;*/
-    background:
-        linear-gradient(
-            rgba(0, 0, 0, 0.5),
-            rgba(0, 0, 0, 0.7)
-        ),
-        url('/images/background.jpg') no-repeat center center fixed;
+html, body{
+      margin: 0;
+      padding:0;
+      height: 100%;
+      font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif;
+  }
 
-    -webkit-background-size: 100% 100%;
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    background-size: 100% 100%;
+  table {
+      border-collapse: collapse;
+      width: 100%;
+  }
+
+  th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+  }
+
+
+  .text-left {
+      text-align: left;
+  }
+
+  .text-right {
+      text-align: right;
+  }
+
+  	/* fade slider */
+  .slides {
+      height: 760px;
+      overflow: hidden;
+      position: relative;
+      width: 1400px;
+      margin-left: -50px;
+      margin-top: -30px;
+  }
+
+  #slide{
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      position:fixed;
+      width:100%;
+      height:100%;
+  }
+
+  .content{
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      position:fixed;
+      width:100%;
+      height:100%;
+  }
+
+.custom-marquee{
+  position: fixed;
+  display: block;
 }
-.full {
+  #content-container{}
+
+  img{
     width: 100%;
     height: 100%;
-}
+    display: contents;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+  }
 
-#content-container {
+
+  div .header-kiri {
+      width: 66.6666%;
+      position: absolute;
+      float: left;
+  }
+
+  div .info-jumat {
+      color: #FFFFFF;
+      width: 300px;
+      background: rgba(0,0,0,0.3);
+      text-align: center;
+      top: 20px;
+      right: 30px;
+      float: right;
+      position: absolute;
+      font-weight: bold;
+      padding: 20px;
+  }
+
+  div .info-masjid {
+      color: #FFFFFF;
+      width: 300px;
+      background: rgba(0,0,0,0.3);
+      text-align: center;
+      top: 205px;
+      right: 30px;
+      float: right;
+      position: absolute;
+      font-weight: bold;
+      padding: 20px;
+  }
+
+  div .info-keuangan {
+      color: #FFFFFF;
+      width: 300px;
+      background: rgba(0,0,0,0.3);
+      text-align: center;
+      top: 390px;
+      right: 30px;
+      float: right;
+      position: absolute;
+      font-weight: bold;
+      padding: 20px;
+  }
+
+  div .title {
+      color: #FFFFFF;
+      font-size: 45px;
+      text-align: center;
+      top: 20px;
+      position: absolute;
+      font-weight: bold;
+      padding: 20px;
+  			/* css3 animation */;
+  }
+
+  div .alamat {
+      color: #FFFFFF;
+      font-size: 21px;
+      text-align: center;
+      top: 70px;
+      position: absolute;
+      padding: 20px;
+  			/* css3 animation */;
+  }
+
+  div .isi {
+      top: 560px;
+      background: rgba(0,0,0,0.3);
+      width: 96.66%;
+      height: 150px;
+      margin: 20px;
+      position: absolute;
+  }
+
+  div .header-content {
+  	/*background: rgba(0,0,0,0.3);*/
     color: #fff;
-}
-,main-row {
+      width: 85%;
+      height: 150px;
+      margin: 20px;
+      top: 20px;
+  }
+
+  .info-title {
+      font-size: 20px;
+  }
+
+  .kiri {
+      width: 16.6666%;
+      position: relative;
+      float: left;
+  }
+
+  .kanan {
+      width: 83.3333%;
+      position: relative;
+      float: right;
+  }
+
+  .jam {
+      font-size: 60px;
+      color: #fff;
+      text-align: center;
+      padding-left: 10px;
+      padding-top: -10px;
+      font-weight: bold;
+  }
+
+  .hari {
+      text-align: left;
+      font-size: 23px;
+      color: #fff;
+      font-weight: bold;
+  }
+
+  .jadwal-shalat {
+      width: 14.666%;
+      color: #fff;
+      font-size: 30px;
+      font-weight: bold;
+      position: relative;
+      padding: 10px;
+      margin-top: 20px;
+      float: left;
+      text-align: center;
+      border-left: 0.1px solid #fff;
+  }
+
+  .jam-shalat {
+      width: 100%;
+      color: #fff;
+      font-size: 50px;
+      font-weight: 100;
+      position: relative;
+      float: left;
+      text-align: center;
+  }
+
+  .marquee {
+      z-index: 5;
+      font-size: 1.28em;
+      max-height: 30px;
+      font-weight: 600;
+      width: 100%;
+      color: #fff;
+      overflow: hidden;
+      background-color: rgba(33, 33, 33, 0.8);
+  }
+  .custom-marquee{
+    position: fixed;
+    display: block;
+    bottom: 0px;
     width: 100%;
-    height: 100%;
-}
+    background: rgba(33, 33, 33, 0.1);
+  }
 
-.spacer-1 {
-    clear:both;
-    padding-top: 1em;
-}
+  .opacity {
+      width: 100%;
+      height: 100%;
+  }
 
+  .clock {
+      display: flex;
+      position: relative;
+      justify-content: space-between;
+      width: 100%;
+      top: 28%;
+      max-width: 40rem;
+      margin: 0 auto;
+  }
 
-.content{
+  .countdown {
+      display: flex;
+      position: relative;
+      justify-content: space-between;
+      width: 100%;
+      top: 28%;
+      max-width: 30rem;
+      margin: 0 auto;
+  }
 
-    margin-left: 1em;
-}
+  .countdown_item {
+      display: flex;
+      flex-direction: column;
+      flex: 0 1 auto;
+      margin-bottom: 1rem;
+  }
 
-.address, .date {
-    font-size: 1.9em;
-    font-weight: 600;
-    text-shadow: 2px 2px 6px #000;
-    line-height: 1;
+  .countdown_item--large {
+      flex: auto;
+      width: 100%;
+      font-size: 2.75em;
+  }
 
-}
+  .countdown_timer {
+      border-radius: 3px;
+      font-weight: bold;
+      width: 100px;
+      font-size: 6em;
+      /*color: #fff;*/
+      text-align: center;
+  }
 
-.date {
-    font-size: 1.7em;
-    font-family: Helvetica;
-}
+  .spacing {
+      border-radius: 3px;
+      font-weight: bold;
+      font-size: 5.2em;
+      /*color: #fff;*/
+  }
 
-.left-bar {
-    background-color: rgba(33, 33, 33, 0.5);
-    color: #fff;
+  .countdown_label {
+      font-size: 1em;
+      padding-top: .40em;
+  }
 
-    padding-bottom: 1000px;
-    margin-bottom: -1000px;
-    height: 100%;
-
-}
-
-.right-bar {
-    height: 100%;
-    /*background-color: #f00;*/
-    height : 100vh;
-}
-
-.events {
-    height: 100%;
-    /*background-color: #f00;*/
-    height : 100vh;
-}
-
-.event-slideshow {
-    /*background-color: #fff;*/
-    height:83%;
-}
-
-.slides, .countdown-timer {
-    left: 0px;
-    width: 98%;
-    height: 100%;
-    background-color: rgba(66, 66, 66, 0.9);
-}
-
-.slides > div {
-    left: 0px;
-    padding: 0px;
-    width: 100%;
-    height: 100%;
-}
-
-.slick-track, .slick-slide, .slick-slide > img {
-    height: 100%;
-    width: 100%;
-}
-
-.prayer-table {
-    margin-top: 10px;
-    margin-bottom: 0px;
-    width: 98%;
-    color: #fff;
-    font-size: 2.4em;
-    text-shadow: 2px 2px 6px #000;
-}
-
-.main-legend {
-    font-size: 2em;
-    color: #fff;
-    font-weight: 600;
-}
-.sub-legend {
-    color: #fff;
-    font-weight: 500;
-}
-
-.sholat-header, .current-prayer-name {
-    padding-top: 4em;
-    font-size: 4em;
-    color: #fff;
-    font-weight: 700;
-}
-
-.sholat-footer, .iqamat-footer {
-    font-size: 5em;
-}
-
-.extra-large {
-    font-size: 7em;
-}
-.masjid-name {
-    margin-top: 1em;
-    font-size: 3.2em;
-    color: #fff;
-    font-weight: 700;
-}
-
-.current-prayer {
-    color: #060;
-    text-shadow: 2px 2px 6px #efe;
-}
-
-.overlay-full {
-    width: 100%;
-    padding-bottom: 1000px;
-    margin-bottom: -1000px;
-    height: 100%;
-    background-color: rgba(33, 33, 33, 0.9);
-
-}
-
-.hero-circle{width:180px;height:180px;margin:0 auto;position:relative;border:8px solid #fff;border-radius:50%;box-shadow:0 1px 8px rgba(34, 34, 34, 0.3),inset 0 1px 8px rgba(34, 34, 34, 0.3);background:url(../img/bg.png) 0 50%;}
-.hero-circle{background-color: rgba(128, 128, 128, 0.5);;}
-/*.hero-circle{background-color:#4e7cad;}*/
-.hero-face{width:100%;height:100%;}
-.hero-face:after{position:absolute;top:50%;left:50%;width:12px;height:12px;margin:-6px 0 0 -6px;background:#fff;border-radius:6px;content:"";display:block;}
-.hero-hour{width:0;height:0;position:absolute;top:50%;left:50%;margin:-4px 0 -4px -25%;padding:4px 0 4px 25%;background:#fff;-webkit-transform-origin:100% 50%;-ms-transform-origin:100% 50%;transform-origin:100% 50%;border-radius:4px 0 0 4px;}
-.hero-minute{width:0;height:0;position:absolute;top:50%;left:50%;margin:-40% -3px 0;padding:40% 3px 0;background:#fff;-webkit-transform-origin:50% 100%;-ms-transform-origin:50% 100%;transform-origin:50% 100%;border-radius:3px 3px 0 0;}
-.hero-second{width:0;height:0;position:absolute;top:50%;left:50%;margin:-40% -1px 0 0;padding:40% 1px 0;background:#fff;-webkit-transform-origin:50% 100%;-ms-transform-origin:50% 100%;transform-origin:50% 100%;}
+  .information {
+      top: 28%;
+      position: relative;
+      min-width: 100%;
+      font-size: 4em;
+      font-weight: bold;
+      text-align: center;
+      /*color: #fff;*/
+  }
 
 
-.financial-box {
-    margin-top: -35px;
-}
+   /*SCREEN < 1920 mozilla*/
+  @media screen and (-moz-min-width: 1920px) {
+      .slides {
+          height: 1060px;
+          width: 1960px;
+      }
 
-.financial-box, .jumat-box {
-    font-size: 1.8em;
-}
+      img {
+          min-width: 1960px;
+          min-height: 1080px;
+      }
 
-.financial-box h4, .jumat-box h4{
-    font-size: 1.2em;
-}
+      div .info-jumat {
+          width: 420px;
+          font-size: 24px;
+          top: 50px;
+          right: 90px;
+      }
 
-.marquee {
-	font-size: 2.2em;
-	font-weight: 600;
-    width: 98%;
-    overflow: hidden;
-    background-color: rgba(33, 33, 33, 0.9);
-}
+      div .info-masjid {
+          width: 420px;
+          top: 315px;
+          right: 90px;
+          font-size: 24px;
+      }
 
-.semi-transparent {
-    background-color: rgba(33, 33, 33, 0.9);
-}
+      div .info-keuangan {
+          width: 420px;
+          top: 550px;
+          right: 90px;
+          font-size: 24px;
+      }
+
+      div .title {
+          font-size: 72px;
+      }
+
+      div .alamat {
+          font-size: 36px;
+          top: 95px;
+      }
+
+      div .isi {
+          top: 780px;
+          background: rgba(0,0,0,0.3);
+          width: 1880px;
+          height: 220px;
+          margin: 20px;
+          position: absolute;
+      }
+
+      div .header-content {
+          width: 85%;
+          height: 250px;
+      }
+
+      .info-title {
+          font-size: 28px;
+      }
+
+      .kiri {
+          width: 260px;
+      }
+
+      .kanan {
+          width: 1620px;
+      }
+
+      .jam {
+          font-size: 72px;
+      }
+
+      .hari {
+          font-size: 34px;
+      }
+
+      .jadwal-shalat {
+          width: 245px;
+          font-size: 48px;
+      }
+
+      .jam-shalat {
+          font-size: 71px;
+      }
+
+      .marquee {
+          font-size: 30px;
+          max-height: 50px;
+          width: 1900px;
+          color: #000;
+      }
+      .countdown_timer {
+          width: 200px;
+          font-size: 9em;
+      }
+
+      .information {
+          font-size: 6em;
+          text-align: center;
+      }
+
+      .spacing {
+          font-size: 9em;
+          text-align: center;
+      }
+  }
 
 
-.updated-at {
-    font-size: 0.75em;
-    color: #aaa;
-    padding-top: 0.2em;
-}
+   /*SCREEN < 1920 mozilla*/
+  @media screen and (min-width: 1920px) {
+      .slides {
+          height: 1060px;
+          width: 1960px;
+      }
+
+      img {
+          min-width: 1960px;
+          min-height: 1080px;
+      }
+
+      div .info-jumat {
+          width: 420px;
+          font-size: 24px;
+          top: 50px;
+          left: 1430px;
+          z-index: 1000;
+      }
+
+      div .info-masjid {
+          width: 420px;
+          top: 315px;
+          left: 1430px;
+          font-size: 24px;
+      }
+
+      div .info-keuangan {
+          width: 420px;
+          top: 550px;
+          left: 1430px;
+          font-size: 24px;
+      }
+
+      div .title {
+          font-size: 72px;
+      }
+
+      div .alamat {
+          font-size: 36px;
+          top: 95px;
+      }
+
+      div .isi {
+          top: 780px;
+          width: 1880px;
+          height: 220px;
+      }
+
+      div .header-content {
+          width: 85%;
+          height: 250px;
+      }
+
+      .info-title {
+          font-size: 28px;
+      }
+
+      .kiri {
+          width: 260px;
+      }
+
+      .kanan {
+          width: 1620px;
+      }
+
+      .jam {
+          font-size: 72px;
+      }
+
+      .hari {
+          font-size: 34px;
+      }
+
+      .jadwal-shalat {
+          width: 245px;
+          font-size: 48px;
+      }
+
+      .jam-shalat {
+          width: 100%;
+          font-size: 71px;
+      }
+
+      .marquee {
+          z-index: 5;
+          font-size: 30px;
+          max-height: 50px;
+          font-weight: 600;
+          width: 1900px;
+      }
+      .countdown_timer {
+          width: 200px;
+          text-align: center;
+          font-size: 9em;
+      }
+
+      .information {
+          font-size: 6em;
+          text-align: center;
+      }
+
+      .spacing {
+          font-size: 9em;
+          text-align: center;
+      }
+  }

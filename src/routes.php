@@ -38,6 +38,11 @@ $app->get('/', function ($request, $response, $args) use($db, $api_token) {
 });
 
 
+$app->get('/old', function ($request, $response, $args) use($db, $api_token) {
+    return $this->renderer->render($response, 'index.old.phtml', $args);
+});
+
+
 
 // Redirect to main page
 $app->get('/install', function ($req, $res, $args) {
@@ -54,10 +59,10 @@ $app->get('/device-stats', function ($request, $response, $args) use ($db, $api_
 
 
     // Calculate disk size
-    $total_space = trim(shell_exec('df -h | tail -n +2 | grep /dev/root | awk \'{print $2}\'')) . "B";
-    $used_space = trim(shell_exec('df -h | tail -n +2 | grep /dev/root | awk \'{print $3}\'')) . "B";
-    $free_space = trim(shell_exec('df -h | tail -n +2 | grep /dev/root | awk \'{print $4}\'')) . "B";
-    $used_space_perc = trim(shell_exec("df -h | tail -n +2 | grep /dev/root | awk '{print $5}'"));
+    $total_space        = trim(shell_exec('df -h | tail -n +2 | grep /dev/root | awk \'{print $2}\'')) . "B";
+    $used_space         = trim(shell_exec('df -h | tail -n +2 | grep /dev/root | awk \'{print $3}\'')) . "B";
+    $free_space         = trim(shell_exec('df -h | tail -n +2 | grep /dev/root | awk \'{print $4}\'')) . "B";
+    $used_space_perc    = trim(shell_exec("df -h | tail -n +2 | grep /dev/root | awk '{print $5}'"));
 
     // Get temperature info
     $info = shell_exec('sensors');
@@ -73,7 +78,7 @@ $app->get('/device-stats', function ($request, $response, $args) use ($db, $api_
     } else {
         $temperature = trim($info);
     }
-    // echo $temperature;
+    echo $temperature;
 
 
     // Get bandwidth info
@@ -94,8 +99,9 @@ $app->get('/device-stats', function ($request, $response, $args) use ($db, $api_
                                 "used_space_perc" => $used_space_perc,
                                 "temperature" => $temperature,
                                 "bandwidth" => $bandwidth);
-    // echo $status;
+    // print_r($status);
 
+    /*
     try {
         $guzzle = new Client([
             // Base URI is used with relative requests
@@ -118,6 +124,7 @@ $app->get('/device-stats', function ($request, $response, $args) use ($db, $api_
     catch (RequestException $e) {
         echo 'Error: ' . $e->getMessage();
     }
+    */
 
     // echo $bandwidth;
 
@@ -128,6 +135,7 @@ $app->get('/device-stats', function ($request, $response, $args) use ($db, $api_
 $app->get('/slideshow', function ($request, $response, $args) use ($db) {
     $app_setting        = $this->settings['GoMasjid'];
     $image_location     = $app_setting['image_dir'];
+    $album_location     = $app_setting['album_dir'];
 
     //
     // $events_file_location = $app_setting['events_file'];
@@ -149,6 +157,13 @@ $app->get('/slideshow', function ($request, $response, $args) use ($db) {
     if ($sth)
     {
         $events = $sth->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    // Albums
+    $sth = $db->query('SELECT * FROM albums ORDER BY album_id ASC, sequence ASC;');
+    if ($sth)
+    {
+        $albums = $sth->fetchAll(PDO::FETCH_CLASS);
     }
 
     // News
@@ -180,7 +195,9 @@ $app->get('/slideshow', function ($request, $response, $args) use ($db) {
             'waktu_sholat'  => WaktuShalat($setting),
             'profil'        => $setting,
             'events'        => $events,
+            'albums'        => $albums,
             'image_location' => $image_location,
+            'album_location' => $album_location,
             'rolling_text'  => $news,
             'financial'     => $financial,
             'info_jumat'    => $info_jumat
@@ -363,9 +380,11 @@ $app->get('/download-slideshows', function ($req, $res, $args) use ($db, $api_to
             $sth = $db->prepare('INSERT INTO slideshows (
                                             image,
                                             title,
+                                            md5,
                                             updated_at
                                             )
                                         VALUES (
+                                            ?,
                                             ?,
                                             ?,
                                             ?
@@ -374,10 +393,14 @@ $app->get('/download-slideshows', function ($req, $res, $args) use ($db, $api_to
             $sth->execute([
                 basename($event->gallery->image_url),
                 $event->gallery->title,
+                $event->gallery->md5,
                 $event->gallery->updated_at
             ]);
 
-            $event_images[] = $event->gallery->image_url;
+            $event_images[] = array(
+                'md5' => $event->gallery->md5,
+                'image' => $event->gallery->image_url,
+            );
 
         }
 
@@ -385,31 +408,45 @@ $app->get('/download-slideshows', function ($req, $res, $args) use ($db, $api_to
         // But need to check if we've ever download this image before (later)
         $image_location = $app_setting['image_dir'];
 
+        $stripped_images = array();
+
         // var_dump($event_images);
         foreach ($event_images as $image)
         {
-            // var_dump($event_images);
-        //     // Download image
-            $filename = basename($image);
+            $filename = basename($image['image']);
 
-
+            // If image not exists yet
             if ( ! file_exists($image_location.$filename))
             {
                 // The file doesn't exists
-                $image_file = fopen($image_location.$filename, "w+");
-                $image = $guzzle->request('GET', $image, [[], 'sink' => $image_file]);
+                $image_file     = fopen($image_location.$filename, "w+");
+
+                echo "Note: File (".$filename.") not exists, downloading\n\n";
+                // Download image
+                $the_image      = $guzzle->request('GET', $image['image'], [[], 'sink' => $image_file]);
                 fclose($image_file);
             }
 
-        //     // echo $image;
+            // If exsists, check md5sum if different
+            else if ( md5_file($image_location.$filename) != $image['md5'])
+            {
+                // The file doesn't exists
+                $image_file     = fopen($image_location.$filename, "w+");
+
+                echo "Note: Checksum of (".$filename.") different, downloading again\n\n";
+                $the_image      = $guzzle->request('GET', $image['image'], [[], 'sink' => $image_file]);
+                fclose($image_file);
+            }
+
+            // Add to stripped_images array (deletion task)
+            $stripped_images[] = $filename;
+
+            // The file is valid, do nothing
+
         }
 
-        $stripped_images = array_map("basename", $event_images);
-
-        // print_r($stripped_images);
-
         // Remove unnecessary images
-        $files = glob($image_location.'*'); // get all file names
+        $files          = glob($image_location.'*'); // get all file names
         foreach($files as $file){ // iterate files
             if (is_file($file) && (! in_array(basename($file), $stripped_images)))
             {
@@ -429,6 +466,156 @@ $app->get('/download-slideshows', function ($req, $res, $args) use ($db, $api_to
     }
 
 });
+
+
+
+
+$app->get('/download-albums', function ($req, $res, $args) use ($db, $api_token) {
+
+    $app_setting    = $this->settings['GoMasjid'];
+    $api_url        = $app_setting['api_url'];
+
+
+    try {
+        $guzzle = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => $api_url,
+            // You can set any number of default request options.
+            // 'timeout'  => 2.0,
+        ]);
+
+        $url_path =  '/api/v1/albums';
+
+        $response = $guzzle->request('POST', $url_path, [
+            'headers' => ['Authorization' => 'Bearer ' . $api_token],
+            ]);
+
+        $event_images = array();
+
+        $response_json = json_decode($response->getBody()->getContents());
+
+        // Delete first
+        $db->exec('DELETE FROM albums;');
+        $db->exec('VACUUM');
+        $db->exec('DELETE FROM sqlite_sequence WHERE name="albums";');
+
+        // print_r($response_json);
+        // exit();
+
+        // Then Insert
+        foreach ($response_json as $event)
+        {
+            $album_id = $event->album->hashed_id;
+            $album_title = $event->album->title;
+
+            // print_r($event);
+
+            foreach ($event->album->images as $album_image)
+            {
+
+                $sth = $db->prepare('INSERT INTO albums (
+                                                album_id,
+                                                album_title,
+                                                image,
+                                                title,
+                                                sequence,
+                                                md5,
+                                                updated_at
+                                                )
+                                            VALUES (
+                                                ?,
+                                                ?,
+                                                ?,
+                                                ?,
+                                                ?,
+                                                ?,
+                                                ?
+                                            );');
+
+                $sth->execute([
+                    $album_id,
+                    $album_title,
+                    basename($album_image->image_url),
+                    $album_image->title,
+                    $album_image->sequence,
+                    $album_image->md5,
+                    $album_image->updated_at
+                ]);
+
+                $event_images[] = array(
+                    'md5'       => $album_image->md5,
+                    'image'     => $album_image->image_url,
+                );
+            }
+
+        }
+
+        // Download images
+        // But need to check if we've ever download this image before (later)
+        $image_location = $app_setting['album_dir'];
+
+        // print_r($event_images);
+        // exit();
+
+        $stripped_images = array();
+
+        // var_dump($event_images);
+        foreach ($event_images as $image)
+        {
+            $filename = basename($image['image']);
+
+            // If image not exists yet
+            if ( ! file_exists($image_location.$filename))
+            {
+                // The file doesn't exists
+                $image_file     = fopen($image_location.$filename, "w+");
+
+                echo "Note: File (".$filename.") not exists, downloading\n\n";
+                // Download image
+                $the_image      = $guzzle->request('GET', $image['image'], [[], 'sink' => $image_file]);
+                fclose($image_file);
+            }
+
+            // If exsists, check md5sum if different
+            else if ( md5_file($image_location.$filename) != $image['md5'])
+            {
+                // The file doesn't exists
+                $image_file     = fopen($image_location.$filename, "w+");
+
+                echo "Note: Checksum of (".$filename.") different, downloading again\n\n";
+                $the_image      = $guzzle->request('GET', $image['image'], [[], 'sink' => $image_file]);
+                fclose($image_file);
+            }
+
+            // Add to stripped_images array (deletion task)
+            $stripped_images[] = $filename;
+
+            // The file is valid, do nothing
+
+        }
+
+        // Remove unnecessary images
+        $files          = glob($image_location.'*'); // get all file names
+        foreach($files as $file){ // iterate files
+            if (is_file($file) && (! in_array(basename($file), $stripped_images)))
+            {
+                if ($file != "index.php")
+                {
+                    echo $file;
+                    echo " deleted<br>";
+                    unlink($file); // delete file
+                }
+            }
+        }
+
+        return $response_json;
+    }
+    catch (RequestException $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
+
+});
+
 
 
 
@@ -1008,6 +1195,7 @@ function WaktuShalat($configuration = null) {
     }
 
     // Imsak
+    /*
     if (isset($fine_tune->imsak))
     {
         $imsak = $fine_tune->imsak;
@@ -1030,5 +1218,27 @@ function WaktuShalat($configuration = null) {
             }
         }
     }
+    */
+    // Always enable Imsak
+    $imsak = array(1, 10);
+    if (is_array($imsak))
+    {
+        if ($imsak[0] == 1)
+        {
+            $hasil = $Z-$Vd;
+            if ($fine_tune->subuh[1] != 0)
+            {
+                $hasil = $hasil + (($fine_tune->subuh[1] - $imsak[1]) / 60);
+                $jam = floor($hasil);
+                $menit = floor(($hasil - $jam) * 60);
+                $detik = floor(((($hasil - $jam) * 60) - $menit) * 60);
+                if (strlen($jam)==1) $jam="0" . $jam;
+                if (strlen($menit)==1) $menit="0" . $menit;
+                if (strlen($detik)==1) $detik="0" . $detik;
+                $output[6] = "$jam:$menit:$detik";
+            }
+        }
+    }
+
     return $output;
 }

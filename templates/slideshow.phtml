@@ -2,85 +2,491 @@
 include('date-function.php');
 ?>
 
-<div class="row main-row slideshow">
-    <div class="col-md-3 left-bar">
-        <div class="content">
-            <p class="masjid-name"><?php echo $profil->name ?></p>
-            <p class="address"><?php echo $profil->address ?></p>
-            <!-- <p class="address">Yogyakarta 55256</p> -->
-            <p class="address">Phone: <?php echo $profil->phone ?></p>
-            <div class="spacer-1">&nbsp;</div>
-            <p class="date"><?php echo $indonesian_day[date('w')] ?>,
-                <?php echo date('j') ?>
-                <?php echo $indonesian_month[date('n')-1] ?>
-                <?php echo date('Y') ?></p>
-            <p class="date"><?php echo $hijri_date['day'] ?> <?php echo $hijri_month[$hijri_date['month']-1] ?>
-                <?php echo $hijri_date['year'] ?></p>
-            <div class="clock clock-wrap clock-wrap-small">
-                <div class="hour-wrap">
-                    <div class="digit-top">
-                    <div class="front">00</div>
-                    <div class="back">00</div>
-                    </div>
-                    <div class="digit-bottom">
-                    <div class="front">00</div>
+
+
+<div class="slideshow">
+    <?php
+    foreach ($events as $event)
+    {
+        // Download image
+        $filename       = basename($event->image);
+        $image          = basename($image_location).'/'.$filename;
+        ?>
+
+        <img id="slide" src="<?php echo $image ?>" alt="image" />
+        <?php
+    }
+    ?>
+
+
+    <?php
+    foreach ($albums as $album)
+    {
+        // Download image
+        $filename       = basename($album->image);
+        $image          = basename($album_location).'/'.$filename;
+        ?>
+
+        <img id="slide" src="<?php echo $image ?>" alt="image" />
+    <?php
+    }
+    ?>
+
+</div>
+
+<div class="custom-headline">
+
+
+    <div class="content">
+        <div class="header-content">
+            <div class="title">MASJID RAYA BANDUNG</div>
+            <div class="alamat">Jl. Asia Afrika, Balonggede, Regol, Kota Bandung,</div>
+        </div>
+
+        <div class="info-jumat">
+            <div class="info-title">
+                INFO SHALAT JUM'AT
+            </div>
+            <div class="info-list">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Ust. Zainuddin MZ</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Ust. Abdullah Gymnastiar	</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Ust. Yusuf Mansur</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="info-masjid">
+            <div class="info-title">
+                INFO INFAQ DAN SODAQOH
+            </div>
+            <div class="info-list">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Rp. 23.232.232</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Rp. 23.232.232	</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Rp. 23.232.232</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="info-keuangan">
+            <div class="info-title">
+                INFO KEUANGAN MASJID
+            </div>
+            <div class="info-list">
+                <table class="table">
+
+                    <tbody>
+                        <tr>
+                            <td class="text-left">PEMASUKAN</td>
+                            <td class="text-right">Rp. 23.232.232</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">PENGELUARAN</td>
+                            <td class="text-right">Rp. 23.232.232	</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">SALDO</td>
+                            <td class="text-right">Rp. 23.232.232</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="isi">
+            <div class="kiri">
+                <div class="jam">
+                    18:30
+                    <div class="hari">
+                        Kamis, <br>
+                        10 Januari 2017
                     </div>
                 </div>
-                <div class="min-wrap">
-                    <div class="digit-top">
-                    <div class="front">59</div>
-                    <div class="back">59</div>
+            </div>
+            <div class="kanan">
+                <div class="jadwal">
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            IMSYA'
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
                     </div>
-                    <div class="digit-bottom">
-                    <div class="front">59</div>
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            SUBUH
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
                     </div>
-                </div>
-                <div class="sec-wrap">
-                    <div class="digit-top">
-                    <div class="front">59</div>
-                    <div class="back">59</div>
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            DZUHUR
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
                     </div>
-                    <div class="digit-bottom">
-                    <div class="front">59</div>
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            AZHAR
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
+                    </div>
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            MAGRIB
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
+                    </div>
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            ISYA'
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
                     </div>
                 </div>
             </div>
 
+        </div>
+    </div>
 
-            <div class="financial-box">
 
-                <h4>Keuangan &nbsp;<span class="pull-right updated-at"><?php echo date("j-n-Y", strtotime($financial->updated_at))  ?></span></h4>
-                <ul class="list-group list-group-unbordered semi-transparent">
-                    <li class="list-group-item semi-transparent">
-                        <strong>Pemasukan</strong> <span class="pull-right">Rp. <?php echo number_format($financial->income, 0, ',', '.') ?></span>
-                    </li>
-                    <li class="list-group-item semi-transparent">
-                        <b>Pengeluaran</b> <span class="pull-right">Rp.  <?php echo number_format($financial->expense, 0, ',', '.') ?></span>
-                    </li>
-                    <li class="list-group-item semi-transparent">
-                        <b>Saldo</b> <span class="pull-right">Rp.  <?php echo number_format($financial->balance, 0, ',', '.') ?></span>
-                    </li>
-                </ul>
+    <!-- CONTENT 3 -->
+    <div class="content">
+        <div class="header-content">
+            <div class="title">MASJID RAYA BANDUNG</div>
+            <div class="alamat">Jl. Asia Afrika, Balonggede, Regol, Kota Bandung,</div>
+        </div>
 
+        <div class="info-jumat">
+            <div class="info-title">
+                INFO SHALAT JUM'AT
+            </div>
+            <div class="info-list">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Ust. Zainuddin MZ</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Ust. Abdullah Gymnastiar	</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Ust. Yusuf Mansur</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <div class="jumat-box">
-
-                <!-- <h4>Sholat Jumat &nbsp;<small>Update 24 March 2016</small></h4> -->
-                <h4>Sholat Jumat &nbsp;<span class="pull-right updated-at"><?php echo date("j-n-Y", strtotime("next Friday", strtotime($info_jumat->updated_at)))  ?></span></h4>
-                <ul class="list-group list-group-unbordered semi-transparent">
-                    <li class="list-group-item semi-transparent">
-                        <strong>Muadzin</strong> <span class="pull-right"><?php echo $info_jumat->muadzin ?></span>
-                    </li>
-                    <li class="list-group-item semi-transparent">
-                        <b>Khotib</b> <span class="pull-right"><?php echo $info_jumat->khatib ?></span>
-                    </li>
-                    <li class="list-group-item semi-transparent">
-                        <b>Imam</b> <span class="pull-right"><?php echo $info_jumat->imam ?></span>
-                    </li>
-                </ul>
-
+        </div>
+        <div class="info-masjid">
+            <div class="info-title">
+                INFO INFAQ DAN SODAQOH
             </div>
+            <div class="info-list">
+                <table class="table">
+
+                    <tbody>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Rp. 23.232.232</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Rp. 23.232.232	</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">21/09/2017</td>
+                            <td class="text-right">Rp. 23.232.232</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="info-keuangan">
+            <div class="info-title">
+                INFO KEUANGAN MASJID
+            </div>
+            <div class="info-list">
+                <table class="table">
+
+                    <tbody>
+                        <tr>
+                            <td class="text-left">PEMASUKAN</td>
+                            <td class="text-right">Rp. 23.232.232</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">PENGELUARAN</td>
+                            <td class="text-right">Rp. 23.232.232	</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">SALDO</td>
+                            <td class="text-right">Rp. 23.232.232</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="isi">
+            <div class="kiri">
+                <div class="jam">
+                    18:30
+                    <div class="hari">
+                        Kamis, <br>
+                        10 Januari 2017
+                    </div>
+                </div>
+            </div>
+            <div class="kanan">
+                <div class="jadwal">
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            IMSYA'
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
+                    </div>
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            SUBUH
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
+                    </div>
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            DZUHUR
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
+                    </div>
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            AZHAR
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
+                    </div>
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            MAGRIB
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
+                    </div>
+                    <div class="jadwal-shalat">
+                        <div class="title-shalat">
+                            ISYA'
+                        </div>
+                        <div class="jam-shalat">
+                            18:04
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <?php
+    foreach ($events as $event)
+    {
+        ?>
+
+
+
+            <div class="content" style="display:none;">
+
+                <div class="header-content">
+                    <div class="title"><?php echo $profil->name ?></div>
+                    <div class="alamat"><?php echo $profil->address ?></div>
+                </div>
+
+                <div class="info-jumat">
+                    <div class="info-title">
+                        INFO SHALAT JUM'AT
+                    </div>
+                    <div class="info-list">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="text-left"><?php echo date("j-n-Y", strtotime("next Friday", strtotime($info_jumat->updated_at)))  ?></td>
+                                    <td class="text-right"><?php echo $info_jumat->khatib ?></td>
+                                </tr>
+                                <!-- <tr>
+                                    <td class="text-left">21/09/2017</td>
+                                    <td class="text-right">Ust. Abdullah Gymnastiar	</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">21/09/2017</td>
+                                    <td class="text-right">Ust. Yusuf Mansur</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="info-keuangan">
+                    <div class="info-title">
+                        INFO KEUANGAN MASJID
+                    </div>
+                    <div class="info-list">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="text-left">PEMASUKAN</td>
+                                    <td class="text-right">Rp. <?php echo number_format($financial->income, 0, ',', '.') ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">PENGELUARAN</td>
+                                    <td class="text-right">Rp. <?php echo number_format($financial->expense, 0, ',', '.') ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">SALDO</td>
+                                    <td class="text-right">Rp. <?php echo number_format($financial->balance, 0, ',', '.') ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <div class="isi">
+                    <div class="kiri">
+                        <div class="jam">
+                            <?php echo date('H:i') ?>
+                            <div class="hari">
+                                <?php echo $indonesian_day[date('w')] ?>, <br>
+                                <?php echo date('j') ?> <?php echo $indonesian_month[date('n')-1] ?> <?php echo date('Y') ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kanan">
+                        <div class="jadwal">
+                            <div class="jadwal-shalat">
+                                <div class="title-shalat">
+                                    IMSYA
+                                </div>
+                                <div class="jam-shalat">
+                                    <?php echo trimSeconds($waktu_sholat[6]) ?>
+                                </div>
+                            </div>
+                            <div class="jadwal-shalat">
+                                <div class="title-shalat">
+                                    SUBUH
+                                </div>
+                                <div class="jam-shalat">
+                                    <?php echo trimSeconds($waktu_sholat[0]) ?>
+                                </div>
+                            </div>
+                            <div class="jadwal-shalat">
+                                <div class="title-shalat">
+                                    DZUHUR
+                                </div>
+                                <div class="jam-shalat">
+                                    <?php echo trimSeconds($waktu_sholat[2]) ?>
+                                </div>
+                            </div>
+                            <div class="jadwal-shalat">
+                                <div class="title-shalat">
+                                    ASHAR
+                                </div>
+                                <div class="jam-shalat">
+                                    <?php echo trimSeconds($waktu_sholat[3]) ?>
+                                </div>
+                            </div>
+                            <div class="jadwal-shalat">
+                                <div class="title-shalat">
+                                    MAGHRIB
+                                </div>
+                                <div class="jam-shalat">
+                                    <?php echo trimSeconds($waktu_sholat[4]) ?>
+                                </div>
+                            </div>
+                            <div class="jadwal-shalat">
+                                <div class="title-shalat">
+                                    ISYA
+                                </div>
+                                <div class="jam-shalat">
+                                    <?php echo trimSeconds($waktu_sholat[5]) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        <?php
+
+    }
+    ?>
+
+</div>
+
+<div class="custom-marquee">
+    <div class="marquee">
+        <?php
+        foreach ($rolling_text as $news_single)
+        {
+            echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+            echo $news_single->content;
+            echo "&nbsp;&nbsp;&nbsp;&nbsp;&mdash;";
+        }
+        ?>
+    </div>
+</div>
+
+<!--
+
+
+
+
 
         </div>
     </div>
@@ -88,22 +494,7 @@ include('date-function.php');
         <div class="events">
             <div class="event-slideshow">
                 <div class="slides">
-                    <?php
-                    foreach ($events as $event)
-                    {
-                        // Download image
-                        $filename = basename($event->image);
-                        $image = basename($image_location).'/'.$filename;
-                        ?>
 
-                        <div>
-                            <img src="<?php echo $image ?>" alt="">
-                        </div>
-
-                        <?php
-
-                    }
-                    ?>
 
                 </div>
 
@@ -142,22 +533,11 @@ include('date-function.php');
                     </table>
                 </div>
 
-                <div class="marquee">
-                    <?php
-                    foreach ($rolling_text as $news_single)
-                    {
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-                        echo $news_single->content;
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&mdash;";
-                    }
-                    ?>
-                    <!-- <marquee behavior="scroll" scrollamount="2" direction="left" >asdfasdf</marquee> -->
-                </div>
 
-            </div><!-- .event-slideshow -->
-        </div><!-- .events -->
+            </div>
+        </div>
 
 
 
     </div>
-</div>
+</div> -->

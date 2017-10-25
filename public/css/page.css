@@ -1,0 +1,193 @@
+body{
+    font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif;
+    max-height: 1080px;
+    max-width: 1920px;
+    margin: 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#content-container {
+    width: 100%;
+}
+
+#content-container ul {
+    padding: 0;
+    margin: 0;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.text-right{
+    text-align: right;
+}
+
+img{
+    min-width: 1940px;
+    max-width: 1940px;
+    min-height: 1100px;
+    max-height: 1100px;
+    background-size: contain;
+}
+
+div .header-kiri{
+        width: 66.6666%;
+        position: absolute;
+        float: left;
+}
+
+div .info-jumat{
+
+    color:#FFFFFF;
+    width: 530px;
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+    top: 300px;
+    right: 30px;
+    float: right;
+    position: absolute;
+    font-weight: bold;
+    padding: 20px;
+}
+div .info-masjid{
+    display: none;
+    color:#FFFFFF;
+    width: 530px;
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+    top: 260px;
+    right: 30px;
+    float: right;
+    position: absolute;
+    font-weight: bold;
+    padding: 20px;
+}
+
+div .info-keuangan{
+
+    color:#FFFFFF;
+    width: 530px;
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+    top: 40px;
+    right: 30px;
+    float: right;
+    position: absolute;
+    font-weight: bold;
+    padding: 20px;
+}
+div .title {
+    color:#FFFFFF;
+    font-size:65px;
+    text-align: center;
+    top: 35px;
+    position:absolute;
+    font-weight: bold;
+    padding: 20px;
+    /* css3 animation */
+
+}
+div .alamat {
+    color:#FFFFFF;
+    font-size:28px;
+    text-align: center;
+    top: 95px;
+    position:absolute;
+    padding: 24px;
+    /* css3 animation */
+
+}
+
+div .isi{
+    top: 780px;
+    background: rgba(0,0,0,0.3);
+    width: 97.4%;
+    height: 220px;
+    margin: 20px;
+    position: absolute;
+}
+
+div .header-content{
+    /*background: rgba(0,0,0,0.3);*/
+    background: #fff;
+    width: 85%;
+    height: 150px;
+    margin: 20px;
+    top: 20px;
+}
+.info-title{
+    font-size: 36px;
+}
+.info-list{
+    font-size: 30px;
+}
+.kiri{
+    width: 16.6666%;
+    position: relative;
+    float: left;
+}
+.kanan{
+    width: 83.3333%;
+    position: relative;
+    float: right;
+}
+
+.jam{
+    font-size: 80px;
+    color:#fff;
+    text-align: center;
+    padding-left: 10px;
+    padding-top: -10px;
+    font-weight: bold;
+}
+.hari{
+    text-align: left;
+    font-size: 38px;
+    color:#fff;
+    font-weight: bold;
+}
+
+.jadwal-shalat{
+    width: 15%;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    position: relative;
+    padding: 10px;
+    margin-top: 20px;
+    float:left;
+    text-align: center;
+    border-left: 0.1px solid #fff;
+}
+.jam-shalat{
+    width: 100%;
+    color: #fff;
+    font-size: 80px;
+    font-weight: 100;
+    position: relative;
+    float:left;
+    text-align: center;
+}
+
+.marquee {
+    z-index: 5;
+    font-size: 2em;
+    max-height: 40px;
+    font-weight: 600;
+    width: 100%;
+
+    color: #000;
+    overflow: hidden;
+    background-color: rgba(33, 33, 33, 0.1);
+}

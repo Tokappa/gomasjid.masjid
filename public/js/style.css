@@ -1,0 +1,533 @@
+body {
+    font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif;
+    max-height: 768px;
+    max-width: 1400px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+	/* fade slider */
+.slides {
+    height: 760px;
+    overflow: hidden;
+    position: relative;
+    width: 1400px;
+    margin-left: -50px;
+    margin-top: -30px;
+}
+
+img {
+    min-width: 1370px;
+    max-width: 1370px;
+    min-height: 780px;
+    max-height: 780px;
+    background-size: contain;
+}
+
+.slides ul {
+    list-style: none;
+    position: relative;
+}
+	/* keyframes #anim_slides */
+@-webkit-keyframes anim_slides {
+    0% {
+        opacity: 0;
+    }
+
+    6% {
+        opacity: 1;
+    }
+
+    24% {
+        opacity: 1;
+    }
+
+    30% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    };
+}
+
+@-moz-keyframes anim_slides {
+    0% {
+        opacity: 0;
+    }
+
+    6% {
+        opacity: 1;
+    }
+
+    24% {
+        opacity: 1;
+    }
+
+    30% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    };
+}
+
+.slides ul li {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+	/* css3 animation */
+    -webkit-animation-name: anim_slides;
+    -webkit-animation-duration: 24.0s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: normal;
+    -webkit-animation-delay: 0;
+    -webkit-animation-play-state: running;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-name: anim_slides;
+    -moz-animation-duration: 24.0s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-direction: normal;
+    -moz-animation-delay: 0;
+    -moz-animation-play-state: running;
+    -moz-animation-fill-mode: forwards;
+}
+	/* css3 delays */
+.slides ul  li:nth-child(1), .slides ul  li:nth-child(1) div {
+    -webkit-animation-delay: 0.0s;
+    -moz-animation-delay: 0.0s;
+}
+
+.slides ul  li:nth-child(2), .slides ul  li:nth-child(2) div {
+    -webkit-animation-delay: 6.0s;
+    -moz-animation-delay: 6.0s;
+}
+
+.slides ul  li:nth-child(3), .slides ul  li:nth-child(3) div {
+    -webkit-animation-delay: 12.0s;
+    -moz-animation-delay: 12.0s;
+}
+
+.slides ul  li:nth-child(4), .slides ul  li:nth-child(4) div {
+    -webkit-animation-delay: 18.0s;
+    -moz-animation-delay: 18.0s;
+}
+
+.slides ul li img {
+    display: block;
+}
+	/* keyframes #anim_titles */
+@-webkit-keyframes anim_titles {
+    0% {
+        left: 100%;
+        opacity: 0;
+    }
+
+    5% {
+        left: 1%;
+        opacity: 1;
+    }
+
+    20% {
+        left: 1%;
+        opacity: 1;
+    }
+
+    25% {
+        left: 100%;
+        opacity: 0;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 0;
+    };
+}
+
+@-moz-keyframes anim_titles {
+    0% {
+        left: 100%;
+        opacity: 0;
+    }
+
+    5% {
+        left: 10%;
+        opacity: 1;
+    }
+
+    20% {
+        left: 10%;
+        opacity: 1;
+    }
+
+    25% {
+        left: 100%;
+        opacity: 0;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 0;
+    };
+}
+
+div .header-kiri {
+    width: 66.6666%;
+    position: absolute;
+    float: left;
+}
+
+div .info-jumat {
+    color: #FFFFFF;
+    width: 300px;
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+    top: 20px;
+    right: 30px;
+    float: right;
+    position: absolute;
+    font-weight: bold;
+    padding: 20px;
+}
+
+div .info-masjid {
+    color: #FFFFFF;
+    width: 300px;
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+    top: 205px;
+    right: 30px;
+    float: right;
+    position: absolute;
+    font-weight: bold;
+    padding: 20px;
+}
+
+div .info-keuangan {
+    color: #FFFFFF;
+    width: 300px;
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+    top: 390px;
+    right: 30px;
+    float: right;
+    position: absolute;
+    font-weight: bold;
+    padding: 20px;
+}
+
+div .title {
+    color: #FFFFFF;
+    font-size: 45px;
+    text-align: center;
+    top: 20px;
+    position: absolute;
+    font-weight: bold;
+    padding: 20px;
+			/* css3 animation */;
+}
+
+div .alamat {
+    color: #FFFFFF;
+    font-size: 21px;
+    text-align: center;
+    top: 70px;
+    position: absolute;
+    padding: 20px;
+			/* css3 animation */;
+}
+
+div .isi {
+    top: 560px;
+    background: rgba(0,0,0,0.3);
+    width: 96.66%;
+    height: 150px;
+    margin: 20px;
+    position: absolute;
+}
+
+div .header-content {
+	/*background: rgba(0,0,0,0.3);*/
+    background: #fff;
+    width: 85%;
+    height: 150px;
+    margin: 20px;
+    top: 20px;
+}
+
+.info-title {
+    font-size: 20px;
+}
+
+.kiri {
+    width: 16.6666%;
+    position: relative;
+    float: left;
+}
+
+.kanan {
+    width: 83.3333%;
+    position: relative;
+    float: right;
+}
+
+.jam {
+    font-size: 60px;
+    color: #fff;
+    text-align: center;
+    padding-left: 10px;
+    padding-top: -10px;
+    font-weight: bold;
+}
+
+.hari {
+    text-align: left;
+    font-size: 23px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.jadwal-shalat {
+    width: 14.666%;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    position: relative;
+    padding: 10px;
+    margin-top: 20px;
+    float: left;
+    text-align: center;
+    border-left: 0.1px solid #fff;
+}
+
+.jam-shalat {
+    width: 100%;
+    color: #fff;
+    font-size: 50px;
+    font-weight: 100;
+    position: relative;
+    float: left;
+    text-align: center;
+}
+
+.marquee {
+    z-index: 5;
+    font-size: 1.28em;
+    max-height: 30px;
+    font-weight: 600;
+    width: 100%;
+    color: #000;
+    overflow: hidden;
+    background-color: rgba(33, 33, 33, 0.1);
+}
+
+ /*SCREEN < 1920 mozilla*/
+@media screen and (-moz-min-width: 1920px) {
+    .slides {
+        height: 1060px;
+        width: 1960px;
+    }
+
+    img {
+        min-width: 1960px;
+        min-height: 1080px;
+    }
+
+    div .info-jumat {
+        width: 420px;
+        font-size: 24px;
+        top: 50px;
+        right: 90px;
+    }
+
+    div .info-masjid {
+        width: 420px;
+        top: 315px;
+        right: 90px;
+        font-size: 24px;
+    }
+
+    div .info-keuangan {
+        width: 420px;
+        top: 550px;
+        right: 90px;
+        font-size: 24px;
+    }
+
+    div .title {
+        font-size: 72px;
+    }
+
+    div .alamat {
+        font-size: 36px;
+        top: 95px;
+    }
+
+    div .isi {
+        top: 780px;
+        background: rgba(0,0,0,0.3);
+        width: 1880px;
+        height: 220px;
+        margin: 20px;
+        position: absolute;
+    }
+
+    div .header-content {
+        width: 85%;
+        height: 250px;
+    }
+
+    .info-title {
+        font-size: 28px;
+    }
+
+    .kiri {
+        width: 260px;
+    }
+
+    .kanan {
+        width: 1620px;
+    }
+
+    .jam {
+        font-size: 72px;
+    }
+
+    .hari {
+        font-size: 34px;
+    }
+
+    .jadwal-shalat {
+        width: 245px;
+        font-size: 48px;
+    }
+
+    .jam-shalat {
+        font-size: 71px;
+    }
+
+    .marquee {
+        font-size: 30px;
+        max-height: 50px;
+        width: 1900px;
+        color: #000;
+    };
+}
+
+
+ /*SCREEN < 1920 mozilla*/
+@media screen and (min-width: 1920px) {
+    .slides {
+        height: 1060px;
+        width: 1960px;
+    }
+
+    img {
+        min-width: 1960px;
+        min-height: 1080px;
+    }
+
+    div .info-jumat {
+        width: 420px;
+        font-size: 24px;
+        top: 50px;
+        left: 1430px;
+        z-index: 1000;
+    }
+
+    div .info-masjid {
+        width: 420px;
+        top: 315px;
+        left: 1430px;
+        font-size: 24px;
+    }
+
+    div .info-keuangan {
+        width: 420px;
+        top: 550px;
+        left: 1430px;
+        font-size: 24px;
+    }
+
+    div .title {
+        font-size: 72px;
+    }
+
+    div .alamat {
+        font-size: 36px;
+        top: 95px;
+    }
+
+    div .isi {
+        top: 780px;
+        width: 1880px;
+        height: 220px;
+    }
+
+    div .header-content {
+        width: 85%;
+        height: 250px;
+    }
+
+    .info-title {
+        font-size: 28px;
+    }
+
+    .kiri {
+        width: 260px;
+    }
+
+    .kanan {
+        width: 1620px;
+    }
+
+    .jam {
+        font-size: 72px;
+    }
+
+    .hari {
+        font-size: 34px;
+    }
+
+    .jadwal-shalat {
+        width: 245px;
+        font-size: 48px;
+    }
+
+    .jam-shalat {
+        width: 100%;
+        font-size: 71px;
+    }
+
+    .marquee {
+        z-index: 5;
+        font-size: 30px;
+        max-height: 50px;
+        font-weight: 600;
+        width: 1900px;
+    };
+}
