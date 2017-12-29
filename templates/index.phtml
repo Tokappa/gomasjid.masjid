@@ -75,7 +75,7 @@
         });
         // */
 
-        var sholat_time = jQuery.parseJSON( '[ {"name":"subuh","time":"2017-10-26 01:40:20","fine_tune":["4","1","1","1"]} ]' );
+        var sholat_time = jQuery.parseJSON( '[ {"name":"subuh","time":"2017-10-26 23:40:20","fine_tune":["1","1","1","1"]} ]' );
 
         setInterval(function() {
 
@@ -393,13 +393,13 @@
                                 });
                                 // */
                                 $('.slideshow img:gt(0)').hide();
-                                // setInterval(function () {
-                                //     $('.slideshow :first-child').fadeOut().next('img').fadeIn().end().appendTo('.slideshow');
-                                // }, 8000);
+                                setInterval(function () {
+                                    $('.slideshow :first-child').fadeOut().next('img').fadeIn().end().appendTo('.slideshow');
+                                }, 8000);
                                 $('.custom-headline .content:gt(0)').hide();
-                                // setInterval(function () {
-                                //     $('.custom-headline>:first-child').fadeOut().next('.content').fadeIn().end().appendTo('.custom-headline');
-                                // }, 8000);
+                                setInterval(function () {
+                                    $('.custom-headline>:first-child').fadeOut().next('.content').fadeIn().end().appendTo('.custom-headline');
+                                }, 8000);
 
 
                             }
