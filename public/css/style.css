@@ -386,7 +386,7 @@ html, body{
       .marquee {
           font-size: 30px;
           max-height: 50px;
-          width: 1900px;
+          width: 100%;
           color: #000;
       }
       .countdown_timer {
@@ -495,7 +495,7 @@ html, body{
           font-size: 30px;
           max-height: 50px;
           font-weight: 600;
-          width: 1900px;
+          width: 100%;
       }
       .countdown_timer {
           width: 200px;
